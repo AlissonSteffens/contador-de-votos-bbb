@@ -1,0 +1,27 @@
+{
+    "name": "contador-de-votos-bbb",
+    "version" : "0.1",
+    "manifest_version": 2,
+
+    "description": "Extensão para contar votos na Ivy do BBB 20",
+    "icons": { "16": "img/icon16.png",
+        "48": "img/icon48.png",
+       "128": "img/icon128.png" },
+    
+   
+    "background": {
+        "scripts":["background.js"]
+    
+    },
+    "browser_action": {
+        "default_icon": "img/icon16.png"
+    },
+      
+      
+    "content_scripts": [{
+        "matches": ["https://gshow.globo.com/realities/bbb/bbb20/votacao*"],
+        "js": ["contador.js"]
+          
+    }]
+
+}
