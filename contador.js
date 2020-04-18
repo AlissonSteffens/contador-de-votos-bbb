@@ -4,6 +4,6 @@
 
 
 function doit (){
-    chrome.extension.sendRequest({nothing: "null"});
+    chrome.extension.sendRequest({greeting: "soma"});
 }
 $("._2FQp0pTz1KSUdFKaO754EC").click(doit)

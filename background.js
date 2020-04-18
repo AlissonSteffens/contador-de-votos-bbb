@@ -13,9 +13,21 @@ function aumenta_contador_visitas(){
     guardaEstadisticas();
 }
 
-chrome.extension.onRequest.addListener(function(feeds,sender,sendResponse)
+function zera_contador_visitas(){
+    contador_visitas = 0 ;
+    badge();
+    guardaEstadisticas();
+}
+
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
-    aumenta_contador_visitas();
+    if (request.greeting == "soma"){
+        aumenta_contador_visitas();
+    }else if (request.greeting == "zerar"){
+        zera_contador_visitas();
+    }
+    
 });
 
 function badge() {
