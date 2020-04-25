@@ -1,6 +1,6 @@
 {
     "name": "contador-de-votos-bbb",
-    "version" : "0.5",
+    "version" : "1.0",
     "manifest_version": 2,
 
     "description": "Extensão para contar votos no site do BBB 20",

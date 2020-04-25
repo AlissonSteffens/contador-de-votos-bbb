@@ -20,6 +20,7 @@ function zera_contador_visitas(){
 }
 
 
+
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 {
     if (request.greeting == "soma"){
@@ -32,10 +33,7 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
 
 function badge() {
     var texto = String(contador_visitas);
-    if(contador_visitas>1000)
-    {
-        texto = String(Math.floor(contador_visitas/1000) + "K")
-    }
+   
     chrome.browserAction.setBadgeText({text:texto});
     chrome.browserAction.setBadgeBackgroundColor({color:[0,0,255,255]});
 }
