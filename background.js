@@ -10,13 +10,13 @@ else
 function aumenta_contador_visitas(){
     contador_visitas++;
     badge();
-    guardaEstadisticas();
+    guardaEstatisticas();
 }
 
 function zera_contador_visitas(){
     contador_visitas = 0 ;
     badge();
-    guardaEstadisticas();
+    guardaEstatisticas();
 }
 
 
@@ -62,7 +62,7 @@ function cargaEstadisticas()
 }
 
 
-function guardaEstadisticas()
+function guardaEstatisticas()
 {
     localStorage.PC_visitas =  JSON.stringify( contador_visitas ) ;
 }
@@ -72,7 +72,7 @@ function guardaEstadisticas()
 //Event when extension closes.
 window.onunload =
     function () {
-    guardaEstadisticas();
+    guardaEstatisticas();
 
 };
 

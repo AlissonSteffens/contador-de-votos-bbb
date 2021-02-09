@@ -1,9 +1,9 @@
 {
     "name": "contador-de-votos-bbb",
-    "version" : "1.0",
+    "version" : "2021.1",
     "manifest_version": 2,
 
-    "description": "Extensão para contar votos no site do BBB 20",
+    "description": "Extensão para contar votos no site do BBB 21",
     "icons": { "16": "img/icon16.png",
         "48": "img/icon48.png",
        "128": "img/icon128.png" },
@@ -20,7 +20,7 @@
       
       
     "content_scripts": [{
-        "matches": ["https://gshow.globo.com/realities/bbb/bbb20/votacao*"],
+        "matches": ["https://gshow.globo.com/realities/bbb/bbb21/votacao*"],
         "js": ["contador.js"]
           
     }]
