@@ -6,4 +6,4 @@
 function doit (){
     chrome.extension.sendRequest({greeting: "soma"});
 }
-$("._41199b06e55c06637bcb").click(doit)
+$("button:contains('Votar Novamente')").click(doit)
