@@ -1,93 +1,62 @@
+let contador_visitas = 0;
 
-let contador_visitas = 0
-
-if (!localStorage.PC_uses)
-    localStorage.PC_uses = 1;
-else
-    localStorage.PC_uses = (parseInt(localStorage.PC_uses))+1;
-
-
-function aumenta_contador_visitas(){
-    contador_visitas++;
-    badge();
-    guardaEstatisticas();
-}
-
-function zera_contador_visitas(){
-    contador_visitas = 0 ;
-    badge();
-    guardaEstatisticas();
-}
-
-
-
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse)
-{
-    if (request.greeting == "soma"){
-        aumenta_contador_visitas();
-    }else if (request.greeting == "zerar"){
-        zera_contador_visitas();
+// Inicializa ou atualiza o contador de usos
+function init() {
+  chrome.storage.local.get(["PC_uses"], function (result) {
+    if (result.PC_uses === undefined) {
+      chrome.storage.local.set({ PC_uses: 1 });
+    } else {
+      chrome.storage.local.set({ PC_uses: result.PC_uses + 1 });
     }
-    
+  });
+  cargaEstatisticas();
+}
+
+// Aumenta o contador de visitas
+function aumenta_contador_visitas() {
+  contador_visitas++;
+  atualizaBadge();
+  guardaEstatisticas();
+}
+
+// Zera o contador de visitas
+function zera_contador_visitas() {
+  contador_visitas = 0;
+  atualizaBadge();
+  guardaEstatisticas();
+}
+
+// Atualiza o badge
+function atualizaBadge() {
+  let texto = String(contador_visitas);
+  chrome.action.setBadgeText({ text: texto });
+chrome.action.setBadgeBackgroundColor({ color: [255, 165, 0, 255] });
+}
+
+// Carrega as estatísticas armazenadas
+function cargaEstatisticas() {
+  chrome.storage.local.get(["PC_visitas"], function (result) {
+    if (result.PC_visitas === undefined) {
+      contador_visitas = 0;
+    } else {
+      contador_visitas = result.PC_visitas;
+    }
+  });
+}
+
+// Salva as estatísticas
+function guardaEstatisticas() {
+  chrome.storage.local.set({ PC_visitas: contador_visitas });
+}
+
+// Ouvinte para mensagens
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.greeting == "soma") {
+    aumenta_contador_visitas();
+  } else if (request.greeting == "zerar") {
+    zera_contador_visitas();
+  }
 });
 
-function badge() {
-    var texto = String(contador_visitas);
-   
-    chrome.browserAction.setBadgeText({text:texto});
-    chrome.browserAction.setBadgeBackgroundColor({color:[0,0,255,255]});
-}
-
-
-//Event when de extension is loaded: whether it is chrome who start or the user who enables the extension
-window.onload = function() {
-    cargaEstadisticas();
-    badge();
-};
-
-
-
-//Load the number of pages visited from the last time
-function cargaEstadisticas()
-{
-    
-    if (!localStorage.PC_visitas)   //Si no hay nada
-    {
-        contador_visitas = 0;
-    }
-    else  //There are data in localstorage
-    {
-        contador_visitas = JSON.parse(localStorage.PC_visitas);
-    }
-}
-
-
-function guardaEstatisticas()
-{
-    localStorage.PC_visitas =  JSON.stringify( contador_visitas ) ;
-}
-
-
-
-//Event when extension closes.
-window.onunload =
-    function () {
-    guardaEstatisticas();
-
-};
-
-// chrome.browserAction.setBadgeText({text: "10+"})
-// let contador = 0
-// alert('oi')
-// document.addEventListener('DOMContentLoaded', function() {
-//     var link = document.getElementsByClassName('_2FQp0pTz1KSUdFKaO754EC T_YgdT6l_inPxOca5wBtJ')
-    
-//     if(link.length > 0){
-//         link = link[0];
-//         link.addEventListener('click', function() {
-//             contador += 1
-//             alert(hey)
-//         });
-//     }
-    
-// });
+// Inicialização
+init();

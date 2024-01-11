@@ -1,28 +1,26 @@
 {
-    "name": "contador-de-votos-bbb",
-    "version" : "2021.2",
-    "manifest_version": 2,
-
-    "description": "Extensão para contar votos no site do BBB 21",
-    "icons": { "16": "img/icon16.png",
-        "48": "img/icon48.png",
-       "128": "img/icon128.png" },
-    
-   
-    "background": {
-        "scripts":["background.js"]
-    
-    },
-    "browser_action": {
-        "default_icon": "img/icon16.png",
-        "default_popup": "popup.html"
-    },
-      
-      
-    "content_scripts": [{
-        "matches": ["https://gshow.globo.com/realities/bbb/bbb-23/votacao*"],
-        "js": ["contador.js"]
-          
-    }]
-
+  "name": "contador-de-votos-bbb",
+  "version": "2024.1",
+  "manifest_version": 3,
+  "description": "Extensão para contar votos no site do BBB 24",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": "img/icon16.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gshow.globo.com/realities/bbb/bbb-24/vot*"],
+      "js": ["contador.js"]
+    }
+  ],
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["https://gshow.globo.com/realities/bbb/bbb-24/vot*"]
 }
